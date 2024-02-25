@@ -28,6 +28,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         backdrop-filter: blur(10px);
+        color: white;
     }
 
 
@@ -42,12 +43,60 @@
         font-optical-sizing: auto;
         font-weight: bold;
         font-style: normal;
-        color: white;
+
     }
 
 
     .modal-dialog {
         max-width: 80%;
+    }
+
+    .popular_content {
+        height: 40vh;
+        /* 设置容器的高度，适当调整以满足你的需求 */
+        overflow-x: auto;
+        /* 允许水平滚动 */
+        display: flex;
+        gap: 10px;
+        /* 可以根据需要调整图片之间的间距 */
+    }
+
+    .popular-list {
+        min-width: 18%;
+        /* 设置每个 .popular-list 的最小宽度 */
+        flex-shrink: 0;
+        /* 防止缩小，以保持固定宽度 */
+        height: 100%;
+        /* 使每个 .popular-list 占据容器的完整高度 */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    /* 隐藏浏览器默认的滚动条样式 */
+    ::-webkit-scrollbar {
+        width: 10px;
+        /* 设置滚动条的宽度 */
+    }
+
+    /* 定义滚动槽的颜色 */
+    ::-webkit-scrollbar-track {
+        background-color: rgb(255, 255, 255,0);
+        /* 设置滚动槽的颜色 */
+    }
+
+    /* 定义滚动条滑块的样式 */
+    ::-webkit-scrollbar-thumb {
+        background-color: rgb(255, 255, 255,.2);
+        /* 设置滑块的颜色 */
+        border-radius: 5px;
+        /* 设置滑块的圆角 */
+    }
+
+    /* 当滑块被悬停时的样式 */
+    ::-webkit-scrollbar-thumb:hover {
+        background-color: #ffffff;
+        /* 设置悬停时的颜色 */
     }
 </style>
 
@@ -61,8 +110,14 @@
         </header>
 
         <main>
-            <section>
-                最近熱播
+            <section class="popular mt-5">
+                <h3>近期熱映</h3>
+                <div
+                    style="width: 500px;height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147,0)80%)">
+                </div>
+                <div class="popular_content mt-3" style="height: 40vh;display: flex;">
+                </div>
+
                 <form action="">
                     <label>Search</label>
                     <input type="search" name="movieName" id="movieName">
@@ -70,11 +125,11 @@
                 </form>
                 <h3>Result</h3>
                 <div class="results" id="results">
-        
+
                 </div>
             </section>
 
-            <section>
+            <section class="search_bar">
                 搜尋欄
             </section>
         </main>
@@ -101,6 +156,45 @@
 
     <script>
         $(document).ready(function () {
+
+            $.ajax({
+                type: "get",
+                url: popularMovie,
+                dataType: 'json',
+                success: function (data) {
+                    console.log('data', data)
+                    let movies = data.results
+                    console.log('movies', movies)
+
+
+                    $.each(movies, function (key, value) {
+                        console.log('key', key)
+                        console.log('value', value)
+                        let moviesName = value.title
+                        let moviesPoster = value.poster_path
+                        console.log('moviesName', moviesName)
+
+
+
+                        let content = `
+                        <div class="popular-list" style="width: 18%;background-image: url(https://image.tmdb.org/t/p/w154/${moviesPoster});
+                        background-repeat: no-repeat;">
+                            </div>
+                        `
+
+                        $('.popular_content').append(content)
+                    })
+                }
+            })
+
+
+
+
+
+
+
+
+
 
 
             let searchBtn = $('#searchBtn');
