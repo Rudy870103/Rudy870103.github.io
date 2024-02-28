@@ -95,6 +95,7 @@
     ::-webkit-scrollbar-thumb:hover {
         background-color: #ffffff;
         /* 设置悬停时的颜色 */
+        
     }
 </style>
 
@@ -134,14 +135,23 @@
                 <div class="results" id="results" style='display:flex;flex-wrap: wrap;'>
     
                 </div>
-                搜尋欄
+                <div style="font-size: 40px;color: white;margin-top: 100px;">請在搜尋欄輸入電影名稱</div>
             </section>
         </main>
 
 
 
-        <footer style="margin-top: 100px;">
-
+        <footer style="margin-top: 10vh;">
+            <div style="background: #060c36;height: 15vh;color: white;display: flex;justify-content: space-between;padding: 20px;align-items: center;">
+                <span>All informations from 
+                    <a href="https://www.themoviedb.org/" target="_blank" style="text-decoration: none;color: rgb(43, 200, 147);font-weight: bold;">TMDB</a>
+                    | Designed by <span style="color: orangered;font-weight: bold;">Rudy_chen</span>                    
+                </span>
+                <a href="https://www.instagram.com/rudy_chenboru/" target="_blank"><i class="fa-brands fa-instagram" style="color: #ffffff;float: right;font-size: 40px;"></i></a>
+            </div>
+            <div
+                    style="height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147))">
+                </div>
         </footer>
 
 
@@ -182,8 +192,7 @@
 
                         let content = `
                         <div class="popular-list" style="width: 18%;background-image: url(https://image.tmdb.org/t/p/w154/${moviesPoster});
-                        background-repeat: no-repeat;">
-                            </div>
+                        background-repeat: no-repeat;"></div>                
                         `
 
                         $('.popular_content').append(content)
@@ -255,13 +264,13 @@
                                     <div class="modal-dialog modal-dialog-scrollable" style="margin:auto; margin-top:100%;">
                                         <div class="modal-content" style="width:100%;">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">${title}</h5>
+                                                <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <div id='modal-body-content'>
                                                 <div><p>${overView}</p></div>
-                                                <div><p>${releaseDate}</p></div>
+                                                <div><p>上映時間 : ${releaseDate}</p></div>
                                                 </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
