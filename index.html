@@ -155,7 +155,7 @@
             <div style="background: #060c36;height: 15vh;color: white;display: flex;justify-content: space-between;padding: 20px;align-items: center;">
                 <span>All informations from 
                     <a href="https://www.themoviedb.org/" target="_blank" style="text-decoration: none;color: rgb(43, 200, 147);font-weight: bold;">TMDB</a>
-                    | Designed by <span style="color: orangered;font-weight: bold;">Rudy_chen</span>                    
+                    | Designed by <span style="color: rgb(255, 183, 0);font-weight: bold;">Rudy_chen</span>                    
                 </span>
                 <a href="https://www.instagram.com/rudy_chenboru/" target="_blank"><i class="fa-brands fa-instagram" style="color: #ffffff;float: right;font-size: 40px;"></i></a>
             </div>
@@ -196,22 +196,101 @@
                         console.log('value', value)
                         let moviesName = value.title
                         let moviesPoster = value.poster_path
+                        let movieId = "movie"+value.id
+                        let movieVideo = value.id 
+                        let title = value.title
+                        let overView = value.overview
+                        let cardContent=overView.substring(0,30)
+                        let releaseDate = value.release_date
                         console.log('moviesName', moviesName)
 
+                        if(overView != ''){
+
+                            let content = `
+                            <div class="popular-list" style="width: 18%;background-image: url(https://image.tmdb.org/t/p/w500/${moviesPoster});
+                            background-repeat: no-repeat;background-size: cover;"></div>                
+                            `
+    
+                            $('.popular_content').append(content)
+    
+                            let intro=`<div class="movie-list" style="width: 23%;height: 20vh;background-color:rgb(255,255,255,.5);border-radius:10px;margin-bottom: 2%;overflow:hidden;display:flex">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${moviesPoster}" style='height:170px'></button>
+                                <div style='margin-right:10px;margin-top:5px;font-size:15px;color:white'><span><${title}></span><br>${cardContent}...</div>
+                                </div>
+    
+                                <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-scrollable" style="margin:auto; margin-top:180%;">
+                                            <div class="modal-content" style="width:100%;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div id='modal-body-content'>
+                                                    <div><p>${overView}</p></div>
+                                                    <div><p>上映時間 : ${releaseDate}</p></div>
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>        
+                                `
+                            $("#intro").append(intro)
 
 
-                        let content = `
-                        <div class="popular-list" style="width: 18%;background-image: url(https://image.tmdb.org/t/p/w154/${moviesPoster});
-                        background-repeat: no-repeat;background-size: cover;"></div>                
-                        `
+                            $.ajax({
+                                type: "get",
+                                url: `https://api.themoviedb.org/3/movie/${movieVideo}/videos?language=zh-TW${apiKey}`,
+                                dataType: 'json',
+                                success: function (videoData) {
+                                    console.log('videoData', videoData);
 
-                        $('.popular_content').append(content)
+                                    if (videoData.results && videoData.results.length > 0) {
+                                        let videos = videoData.results;
+                                        $.each(videos, function (videoKey, videoValue) {
+                                            let moviesKey = videoValue.key;
+                                            console.log('moviesKey', moviesKey)
 
-                        let intro=`<div class="movie-list" style="width: 23%;height: 20vh;background-color:rgb(255,255,255,.5);border-radius:10px;margin-bottom: 2%;overflow:hidden">
-                            <a href=""><img src="https://image.tmdb.org/t/p/w154/${moviesPoster}" alt=""></a>
-                            </div>`
+                                            let videoContent = `
+                                                  <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                              `;
 
-                        $("#intro").append(intro)
+
+                                            $(`#${movieId} #modal-body-content`).append(videoContent);
+                                        });
+                                    } else {
+                                        $.ajax({
+                                            type: "get",
+                                            url: `https://api.themoviedb.org/3/movie/${movieId}/videos?${apiKey}`,
+                                            dataType: 'json',
+                                            success: function (videoData) {
+                                                if (videoData.results && videoData.results.length > 0) {
+                                                    let videos = videoData.results;
+
+                                                    $.each(videos, function (videoKey, videoValue) {
+                                                        let moviesKey = videoValue.key;
+                                                        console.log('moviesKey', moviesKey)
+
+                                                        let videoContent = `
+                                                             <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                         `;
+
+
+                                                        $(`#modal-body-content`).append(videoContent);
+                                                    });
+                                                }
+                                            }
+                                        })
+                                    }
+                                }
+                            });
+
+                        }
+
                     })
                 }
             })
