@@ -78,13 +78,13 @@
 
     /* 定义滚动槽的颜色 */
     ::-webkit-scrollbar-track {
-        background-color: rgb(255, 255, 255,0);
+        background-color: rgb(255, 255, 255, 0);
         /* 设置滚动槽的颜色 */
     }
 
     /* 定义滚动条滑块的样式 */
     ::-webkit-scrollbar-thumb {
-        background-color: rgb(255, 255, 255,.2);
+        background-color: rgb(255, 255, 255, .2);
         /* 设置滑块的颜色 */
         border-radius: 5px;
         /* 设置滑块的圆角 */
@@ -94,7 +94,65 @@
     ::-webkit-scrollbar-thumb:hover {
         background-color: #ffffff;
         /* 设置悬停时的颜色 */
-        
+
+    }
+
+    .movie-list {
+        width: 23%;
+        height: 20vh;
+        background-color: rgb(255, 255, 255, .5);
+        border-radius: 10px;
+        margin-bottom: 2%;
+        overflow: hidden;
+        display: flex;
+    }
+
+    .movie-list img {
+        height: 100%;
+    }
+
+    .modal-content{
+        width:50%;
+        margin:auto;
+    }
+
+    .modal-dialog-scrollable{
+        margin:auto; 
+        margin-top:100%;
+    }
+
+    .searchResult{
+        margin:auto; 
+        margin-top:50%;
+    }
+
+    @media(max-width:640px) {
+        .movie-list {
+            width: auto;
+        }
+
+        .movie-list img {
+            height: 100%;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        .modal-content{
+        width:100%;
+        margin:auto;
+        }
+
+        .modal-dialog-scrollable{
+        margin:auto; 
+        margin-top:250%;
+    }
+
+    .searchResult{
+        margin:auto; 
+        margin-top:150%;
+    }
     }
 </style>
 
@@ -102,7 +160,7 @@
     <div class="container">
 
         <header>
-            <div class="title" style="color: white;">
+            <div class="title col-fluid" style="color: white;">
                 <h1><br><br><br>&nbsp&nbsp&nbsp&nbsp&nbsp透過電影，發現我們還未體驗的世界...</h1>
             </div>
         </header>
@@ -119,7 +177,7 @@
 
 
             </section>
-            
+
             <section class="search_bar">
                 <h3 style="color: white;">尋找電影</h3>
                 <div
@@ -130,20 +188,20 @@
                     <input type="search" name="movieName" id="movieName">
                     <button type="button" class="searchBtn" id="searchBtn">搜尋</button>
                 </form>
-                
+
                 <div class="results" id="results" style='display:flex;flex-wrap: wrap;height: 500px;overflow: auto;'>
-                    <span style="font-size: 40px;color:white">請在搜尋欄輸入電影名稱</span> 
+                    <span style="font-size: 40px;color:white">請在搜尋欄輸入電影名稱</span>
                 </div>
             </section>
-
 
             <section>
                 <h3 style="color: white;margin-top: 100px;">電影簡介</h3>
                 <div
                     style="width: 500px;height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147,0)80%)">
                 </div>
-                <div id="intro" class="mt-5" style="display: flex;flex-wrap: wrap;gap: 2%;height: 500px;overflow: auto;">
-    
+                <div id="intro" class="mt-5"
+                    style="display: flex;flex-wrap: wrap;gap: 2%;height: 500px;overflow: auto;">
+
                 </div>
             </section>
         </main>
@@ -151,16 +209,19 @@
 
 
         <footer style="margin-top: 10vh;">
-            <div style="background: #060c36;height: 15vh;color: white;display: flex;justify-content: space-between;padding: 20px;align-items: center;">
-                <span>All informations from 
-                    <a href="https://www.themoviedb.org/" target="_blank" style="text-decoration: none;color: rgb(43, 200, 147);font-weight: bold;">TMDB</a>
-                    | Designed by <span style="color: rgb(255, 183, 0);font-weight: bold;">Rudy_chen</span>                    
+            <div
+                style="background: #060c36;height: 15vh;color: white;display: flex;justify-content: space-between;padding: 20px;align-items: center;">
+                <span>All informations from
+                    <a href="https://www.themoviedb.org/" target="_blank"
+                        style="text-decoration: none;color: rgb(43, 200, 147);font-weight: bold;">TMDB</a>
+                    | Designed by <span style="color: rgb(255, 183, 0);font-weight: bold;">Rudy_chen</span>
                 </span>
-                <a href="https://www.instagram.com/rudy_chenboru/" target="_blank"><i class="fa-brands fa-instagram" style="color: #ffffff;float: right;font-size: 40px;"></i></a>
+                <a href="https://www.instagram.com/rudy_chenboru/" target="_blank"><i class="fa-brands fa-instagram"
+                        style="color: #ffffff;float: right;font-size: 40px;"></i></a>
             </div>
             <div
-                    style="height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147))">
-                </div>
+                style="height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147))">
+            </div>
         </footer>
 
 
@@ -195,32 +256,32 @@
                         console.log('value', value)
                         let moviesName = value.title
                         let moviesPoster = value.poster_path
-                        let movieId = "movie"+value.id
-                        let movieVideo = value.id 
+                        let movieId = "movie" + value.id
+                        let movieVideo = value.id
                         let title = value.title
                         let overView = value.overview
-                        let cardContent=overView.substring(0,30)
+                        let cardContent = overView.substring(0, 30)
                         let releaseDate = value.release_date
                         console.log('moviesName', moviesName)
 
-                        if(overView != ''){
+                        if (overView != '') {
 
                             let content = `
                             <div class="popular-list" style="width: 18%;background-image: url(https://image.tmdb.org/t/p/w500/${moviesPoster});
                             background-repeat: no-repeat;background-size: cover;"></div>                
                             `
-    
+
                             $('.popular_content').append(content)
-    
-                            let intro=`<div class="movie-list" style="width: 23%;height: 20vh;background-color:rgb(255,255,255,.5);border-radius:10px;margin-bottom: 2%;overflow:hidden;display:flex">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${moviesPoster}" style='height:170px'></button>
+
+                            let intro = `<div class="movie-list">
+                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${moviesPoster}"></button>
                                 <div style='margin-right:10px;margin-top:5px;font-size:15px;color:white'><span><${title}></span><br>${cardContent}...</div>
                                 </div>
     
                                 <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                        <div class="modal-dialog modal-dialog-scrollable" style="margin:auto; margin-top:100%;">
-                                            <div class="modal-content" style="width:50%;margin:auto">
+                                        <div class="modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -355,7 +416,7 @@
                                
                                 <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" style="margin:auto; margin-top:50%;">
+                                    <div class="searchResult modal-dialog modal-dialog-scrollable">
                                         <div class="modal-content" style="width:100%;">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
