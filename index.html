@@ -29,6 +29,25 @@
         backdrop-filter: blur(10px);
     }
 
+    #myBtn {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 3vh;
+        font-weight: bold;
+        width: 18vh;
+        height: 8vh;
+        background-color: rgb(255, 255, 255,.5);
+        border-radius: 15px 0 0 15px;
+        position: sticky;
+        top: 80%;
+        float: right;
+        color: white;
+    }
+    #myBtn:hover{
+        background-color: rgba(255, 0, 0, 0.5);
+    }
 
     header {
         height: 50vh;
@@ -167,6 +186,8 @@
 </style>
 
 <body>
+    <a href="https://www.ezding.com.tw/" target="_blank"><div id="myBtn">訂票去</div></a>
+
     <div class="container">
 
         <header>
@@ -446,7 +467,7 @@
                             let releaseDate = value.release_date
                             let moviesKey;
 
-                            if(img != null){
+                            if (img != null) {
 
                                 // 為了讓bootstrap的彈跳視窗帶入個別電影的id
                                 let movieId = 'movie' + value.id
@@ -476,28 +497,28 @@
                                     </div>
                                 </div>
                                 `
-    
+
                                 $('#results').append(content)
-    
-    
+
+
                                 $.ajax({
                                     type: "get",
                                     url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?language=zh-TW${apiKey}`,
                                     dataType: 'json',
                                     success: function (videoData) {
                                         console.log('videoData', videoData);
-    
+
                                         if (videoData.results && videoData.results.length > 0) {
                                             let videos = videoData.results;
                                             $.each(videos, function (videoKey, videoValue) {
                                                 let moviesKey = videoValue.key;
                                                 console.log('moviesKey', moviesKey)
-    
+
                                                 let videoContent = `
                                                       <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                                   `;
-    
-    
+
+
                                                 $(`#${movieId} #modal-body-content`).append(videoContent);
                                             });
                                         } else {
@@ -508,16 +529,16 @@
                                                 success: function (videoData) {
                                                     if (videoData.results && videoData.results.length > 0) {
                                                         let videos = videoData.results;
-    
+
                                                         $.each(videos, function (videoKey, videoValue) {
                                                             let moviesKey = videoValue.key;
                                                             console.log('moviesKey', moviesKey)
-    
+
                                                             let videoContent = `
                                                                  <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                                                              `;
-    
-    
+
+
                                                             $(`#${movieId} #modal-body-content`).append(videoContent);
                                                         });
                                                     }
