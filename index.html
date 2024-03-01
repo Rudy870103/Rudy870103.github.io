@@ -241,9 +241,10 @@
     <script>
         $(document).ready(function () {
 
+
             $.ajax({
                 type: "get",
-                url: popularMovie,
+                url: trendingMovie,
                 dataType: 'json',
                 success: function (data) {
                     console.log('data', data)
@@ -272,7 +273,36 @@
                             `
 
                             $('.popular_content').append(content)
+                        }
 
+                    })
+                }
+            })
+
+            $.ajax({
+                type: "get",
+                url: popularMovie,
+                dataType: 'json',
+                success: function (data) {
+                    console.log('data', data)
+                    let movies = data.results
+                    console.log('movies', movies)
+
+
+                    $.each(movies, function (key, value) {
+                        console.log('key', key)
+                        console.log('value', value)
+                        let moviesName = value.title
+                        let moviesPoster = value.poster_path
+                        let movieId = "movie" + value.id
+                        let movieVideo = value.id
+                        let title = value.title
+                        let overView = value.overview
+                        let cardContent = overView.substring(0, 30)
+                        let releaseDate = value.release_date
+                        console.log('moviesName', moviesName)
+
+                        if (overView != '') {
                             let intro = `<div class="movie-list">
                                 <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${moviesPoster}"></button>
                                 <div style='margin-right:10px;margin-top:5px;font-size:15px;color:white'><span><${title}></span><br>${cardContent}...</div>
