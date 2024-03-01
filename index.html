@@ -111,22 +111,32 @@
         height: 100%;
     }
 
-    .modal-content{
-        width:50%;
-        margin:auto;
+    .modal-content {
+        width: 50%;
+        margin: auto;
     }
 
-    .modal-dialog-scrollable{
-        margin:auto; 
-        margin-top:100%;
+    .modal-dialog-scrollable {
+        margin: auto;
+        margin-top: 100%;
     }
 
-    .searchResult{
-        margin:auto; 
-        margin-top:50%;
+    .searchResult {
+        margin: auto;
+        margin-top: 50%;
     }
 
     @media(max-width:640px) {
+        .popular_content {
+            height: 20vh;
+            /* 设置容器的高度，适当调整以满足你的需求 */
+            overflow-x: auto;
+            /* 允许水平滚动 */
+            display: flex;
+            gap: 10px;
+            /* 可以根据需要调整图片之间的间距 */
+        }
+
         .movie-list {
             width: auto;
         }
@@ -139,20 +149,20 @@
             font-size: 24px;
         }
 
-        .modal-content{
-        width:100%;
-        margin:auto;
+        .modal-content {
+            width: 100%;
+            margin: auto;
         }
 
-        .modal-dialog-scrollable{
-        margin:auto; 
-        margin-top:250%;
-    }
+        .modal-dialog-scrollable {
+            margin: auto;
+            margin-top: 250%;
+        }
 
-    .searchResult{
-        margin:auto; 
-        margin-top:150%;
-    }
+        .searchResult {
+            margin: auto;
+            margin-top: 150%;
+        }
     }
 </style>
 
@@ -171,7 +181,7 @@
                 <div
                     style="width: 500px;height: 5px;background: linear-gradient(to right, rgb(51, 153, 255) , rgb(43, 200, 147),rgb(43, 200, 147,0)80%)">
                 </div>
-                <div class="popular_content mt-3" style="height: 40vh;display: flex;">
+                <div class="popular_content mt-3">
                 </div>
 
 
@@ -436,85 +446,88 @@
                             let releaseDate = value.release_date
                             let moviesKey;
 
+                            if(img != null){
 
-                            // 為了讓bootstrap的彈跳視窗帶入個別電影的id
-                            let movieId = 'movie' + value.id
-                            let content = `
-                            <div>
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${img}" alt="${title}"></button>
-                                
-                               
-                                <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                                    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                    <div class="searchResult modal-dialog modal-dialog-scrollable">
-                                        <div class="modal-content" style="width:100%;">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div id='modal-body-content'>
-                                                <div><p>${overView}</p></div>
-                                                <div><p>上映時間 : ${releaseDate}</p></div>
+                                // 為了讓bootstrap的彈跳視窗帶入個別電影的id
+                                let movieId = 'movie' + value.id
+                                let content = `
+                                <div>
+                                    <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#${movieId}"><img src="https://image.tmdb.org/t/p/w154/${img}" alt="${title}"></button>
+                                    
+                                   
+                                    <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="searchResult modal-dialog modal-dialog-scrollable">
+                                            <div class="modal-content" style="width:100%;">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <div class="modal-body">
+                                                    <div id='modal-body-content'>
+                                                    <div><p>${overView}</p></div>
+                                                    <div><p>上映時間 : ${releaseDate}</p></div>
+                                                    </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            `
-
-                            $('#results').append(content)
-
-
-                            $.ajax({
-                                type: "get",
-                                url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?language=zh-TW${apiKey}`,
-                                dataType: 'json',
-                                success: function (videoData) {
-                                    console.log('videoData', videoData);
-
-                                    if (videoData.results && videoData.results.length > 0) {
-                                        let videos = videoData.results;
-                                        $.each(videos, function (videoKey, videoValue) {
-                                            let moviesKey = videoValue.key;
-                                            console.log('moviesKey', moviesKey)
-
-                                            let videoContent = `
-                                                  <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                              `;
-
-
-                                            $(`#${movieId} #modal-body-content`).append(videoContent);
-                                        });
-                                    } else {
-                                        $.ajax({
-                                            type: "get",
-                                            url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?${apiKey}`,
-                                            dataType: 'json',
-                                            success: function (videoData) {
-                                                if (videoData.results && videoData.results.length > 0) {
-                                                    let videos = videoData.results;
-
-                                                    $.each(videos, function (videoKey, videoValue) {
-                                                        let moviesKey = videoValue.key;
-                                                        console.log('moviesKey', moviesKey)
-
-                                                        let videoContent = `
-                                                             <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                                                         `;
-
-
-                                                        $(`#${movieId} #modal-body-content`).append(videoContent);
-                                                    });
+                                `
+    
+                                $('#results').append(content)
+    
+    
+                                $.ajax({
+                                    type: "get",
+                                    url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?language=zh-TW${apiKey}`,
+                                    dataType: 'json',
+                                    success: function (videoData) {
+                                        console.log('videoData', videoData);
+    
+                                        if (videoData.results && videoData.results.length > 0) {
+                                            let videos = videoData.results;
+                                            $.each(videos, function (videoKey, videoValue) {
+                                                let moviesKey = videoValue.key;
+                                                console.log('moviesKey', moviesKey)
+    
+                                                let videoContent = `
+                                                      <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                  `;
+    
+    
+                                                $(`#${movieId} #modal-body-content`).append(videoContent);
+                                            });
+                                        } else {
+                                            $.ajax({
+                                                type: "get",
+                                                url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?${apiKey}`,
+                                                dataType: 'json',
+                                                success: function (videoData) {
+                                                    if (videoData.results && videoData.results.length > 0) {
+                                                        let videos = videoData.results;
+    
+                                                        $.each(videos, function (videoKey, videoValue) {
+                                                            let moviesKey = videoValue.key;
+                                                            console.log('moviesKey', moviesKey)
+    
+                                                            let videoContent = `
+                                                                 <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                                                             `;
+    
+    
+                                                            $(`#${movieId} #modal-body-content`).append(videoContent);
+                                                        });
+                                                    }
                                                 }
-                                            }
-                                        })
+                                            })
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
+
 
 
                         })
