@@ -113,7 +113,7 @@
     ::-webkit-scrollbar-thumb:hover {
         background-color: #ffffff;
         /* 设置悬停时的颜色 */
-
+        background-color: rgb(77, 77, 77);
     }
 
     .movie-list {
@@ -342,16 +342,28 @@
                                 <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
+                                            <div class="modal-content" style='background-color:#ccc'>
+                                                <div class="modal-header" style='background-color:rgb(77, 77, 77)'>
+                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold;color:white'>
+                                                        <i class="fa-solid fa-video" style="color: #FFD43B;"></i>&nbsp ${title}
+                                                    </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div id='modal-body-content'>
-                                                    <div><p>${overView}</p></div>
-                                                    <div><p>上映時間 : ${releaseDate}</p></div>
+                                                    <div class='mb-3' id='modal-body-content'>
+                                                    <div>                                                       
+                                                        <p>
+                                                            <i class="fa-solid fa-circle-play fa-flip-vertical" style="color: #24457b;"></i>
+                                                            ${overView}
+                                                        </p>
                                                     </div>
+                                                    <div>
+                                                        <p>
+                                                            <i class="fa-solid fa-calendar-week" style="color: #24457b;"></i>
+                                                            上映時間 : ${releaseDate}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
@@ -479,16 +491,28 @@
                                     <div class="modal fade" id="${movieId}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
                                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="searchResult modal-dialog modal-dialog-scrollable">
-                                            <div class="modal-content" style="width:100%;">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold'>${title}</h5>
+                                            <div class="modal-content" style="background-color:#ccc">
+                                                <div class="modal-header" style='background-color:rgb(77, 77, 77)'>
+                                                    <h5 class="modal-title" id="staticBackdropLabel" style='font-weight:bold;color:white'>
+                                                        <i class="fa-solid fa-video" style="color: #FFD43B;"></i>&nbsp ${title}
+                                                    </h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <div id='modal-body-content'>
-                                                    <div><p>${overView}</p></div>
-                                                    <div><p>上映時間 : ${releaseDate}</p></div>
+                                                    <div class='mb-3' id='modal-body-content'>
+                                                        <div>                                                       
+                                                        <p>
+                                                            <i class="fa-solid fa-circle-play fa-flip-vertical" style="color: #24457b;"></i>
+                                                            ${overView}
+                                                        </p>
                                                     </div>
+                                                    <div>
+                                                        <p>
+                                                            <i class="fa-solid fa-calendar-week" style="color: #24457b;"></i>
+                                                            上映時間 : ${releaseDate}
+                                                        </p>
+                                                    </div>
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                                 </div>
