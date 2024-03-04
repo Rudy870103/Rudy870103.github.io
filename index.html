@@ -286,14 +286,14 @@
                 url: trendingMovie,
                 dataType: 'json',
                 success: function (data) {
-                    console.log('data', data)
+                    // console.log('data', data)
                     let movies = data.results
-                    console.log('movies', movies)
+                    // console.log('movies', movies)
 
 
                     $.each(movies, function (key, value) {
-                        console.log('key', key)
-                        console.log('value', value)
+                        // console.log('key', key)
+                        // console.log('value', value)
                         let moviesName = value.title
                         let moviesPoster = value.poster_path
                         let movieId = "movie" + value.id
@@ -302,7 +302,7 @@
                         let overView = value.overview
                         let cardContent = overView.substring(0, 30)
                         let releaseDate = value.release_date
-                        console.log('moviesName', moviesName)
+                        // console.log('moviesName', moviesName)
 
                         if (overView != '') {
 
@@ -323,14 +323,14 @@
                 url: popularMovie,
                 dataType: 'json',
                 success: function (data) {
-                    console.log('data', data)
+                    // console.log('data', data)
                     let movies = data.results
-                    console.log('movies', movies)
+                    // console.log('movies', movies)
 
 
                     $.each(movies, function (key, value) {
-                        console.log('key', key)
-                        console.log('value', value)
+                        // console.log('key', key)
+                        // console.log('value', value)
                         let moviesName = value.title
                         let moviesPoster = value.poster_path
                         let movieId = "movie" + value.id
@@ -339,7 +339,7 @@
                         let overView = value.overview
                         let cardContent = overView.substring(0, 30)
                         let releaseDate = value.release_date
-                        console.log('moviesName', moviesName)
+                        // console.log('moviesName', moviesName)
 
                         if (overView != '') {
                             let intro = `<div class="movie-list">
@@ -388,13 +388,13 @@
                                 url: `https://api.themoviedb.org/3/movie/${movieVideo}/videos?language=zh-TW${apiKey}`,
                                 dataType: 'json',
                                 success: function (videoData) {
-                                    console.log('videoData', videoData);
+                                    // console.log('videoData', videoData);
 
                                     if (videoData.results && videoData.results.length > 0) {
                                         let videos = videoData.results;
                                         $.each(videos, function (videoKey, videoValue) {
                                             let moviesKey = videoValue.key;
-                                            console.log('moviesKey', moviesKey)
+                                            // console.log('moviesKey', moviesKey)
 
                                             let videoContent = `
                                                   <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -414,7 +414,7 @@
 
                                                     $.each(videos, function (videoKey, videoValue) {
                                                         let moviesKey = videoValue.key;
-                                                        console.log('moviesKey', moviesKey)
+                                                        // console.log('moviesKey', moviesKey)
 
                                                         let videoContent = `
                                                              <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -467,7 +467,7 @@
 
             function searchMovie() {
                 let getMovieName = movieName.val();
-                console.log('getMovieName', getMovieName)
+                // console.log('getMovieName', getMovieName)
 
                 let url = `https://api.themoviedb.org/3/search/movie?query=${getMovieName}&language=zh-TW${apiKey}`
                 $.ajax({
@@ -475,11 +475,11 @@
                     url: url,
                     dataType: 'json',
                     success: function (data) {
-                        console.log('data', data)
+                        // console.log('data', data)
                         let movieResults = data.results
 
                         $.each(movieResults, function (key, value) {
-                            console.log('value', value)
+                            // console.log('value', value)
                             let moviesId = value.id
                             let img = value.poster_path
                             let title = value.title
@@ -538,13 +538,13 @@
                                     url: `https://api.themoviedb.org/3/movie/${moviesId}/videos?language=zh-TW${apiKey}`,
                                     dataType: 'json',
                                     success: function (videoData) {
-                                        console.log('videoData', videoData);
+                                        // console.log('videoData', videoData);
 
                                         if (videoData.results && videoData.results.length > 0) {
                                             let videos = videoData.results;
                                             $.each(videos, function (videoKey, videoValue) {
                                                 let moviesKey = videoValue.key;
-                                                console.log('moviesKey', moviesKey)
+                                                // console.log('moviesKey', moviesKey)
 
                                                 let videoContent = `
                                                       <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -564,7 +564,7 @@
 
                                                         $.each(videos, function (videoKey, videoValue) {
                                                             let moviesKey = videoValue.key;
-                                                            console.log('moviesKey', moviesKey)
+                                                            // console.log('moviesKey', moviesKey)
 
                                                             let videoContent = `
                                                                  <iframe width="450" height="315" src="https://www.youtube.com/embed/${moviesKey}?si=k8ZO6cumfCJ80mJv" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
